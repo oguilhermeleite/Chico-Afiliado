@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install)",
+      "Bash(npm run migrate:*)",
+      "Bash(nslookup:*)",
+      "Bash(npm run dev:*)",
+      "Bash(ping:*)",
+      "Bash(tasklist:*)",
+      "Bash(findstr:*)",
+      "Bash(cmd //c \"taskkill /F /PID 11572\")",
+      "Bash(cmd //c \"taskkill /F /PID 21064\")",
+      "Bash(git add:*)"
+    ]
+  }
+}

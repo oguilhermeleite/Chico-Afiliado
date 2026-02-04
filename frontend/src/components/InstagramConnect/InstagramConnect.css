@@ -1,0 +1,356 @@
+/* Instagram Card Base */
+.instagram-card {
+  background: var(--card-dark);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+/* Loading State */
+.instagram-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 120px;
+  color: var(--text-secondary);
+}
+
+.loading-icon {
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Connect Card */
+.instagram-connect .instagram-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.instagram-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #833AB4 0%, #FD1D1D 50%, #F77737 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.instagram-icon {
+  width: 24px;
+  height: 24px;
+  color: white;
+}
+
+.instagram-header-text h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 4px 0;
+}
+
+.instagram-header-text p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Requirements List */
+.instagram-requirements {
+  background: rgba(199, 255, 0, 0.05);
+  border: 1px solid rgba(199, 255, 0, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.requirement-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.requirement-item + .requirement-item {
+  margin-top: 10px;
+}
+
+.requirement-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--primary-green);
+  flex-shrink: 0;
+}
+
+.requirement-icon.warning {
+  color: var(--warning);
+}
+
+/* Connect Button */
+.btn-connect-instagram {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #C7FF00 0%, #00FF87 100%);
+  color: #0A0F0D;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-connect-instagram:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(199, 255, 0, 0.3);
+}
+
+.btn-connect-instagram:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+/* Profile Card */
+.instagram-profile .profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile-picture-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.profile-picture {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid var(--primary-green);
+  object-fit: cover;
+}
+
+.profile-picture-fallback {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid var(--primary-green);
+  background: linear-gradient(135deg, #833AB4 0%, #FD1D1D 50%, #F77737 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.profile-picture-fallback svg {
+  width: 32px;
+  height: 32px;
+}
+
+.profile-badge {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 24px;
+  height: 24px;
+  background: var(--primary-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--card-dark);
+}
+
+.profile-badge svg {
+  width: 14px;
+  height: 14px;
+  color: #0A0F0D;
+}
+
+.profile-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-info h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.profile-stats {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.stat-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--text-muted);
+}
+
+.stat-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--primary-green);
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.profile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.btn-view-profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: rgba(199, 255, 0, 0.1);
+  color: var(--primary-green);
+  border: 1px solid rgba(199, 255, 0, 0.3);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-view-profile:hover {
+  background: rgba(199, 255, 0, 0.2);
+}
+
+.btn-view-profile svg {
+  width: 14px;
+  height: 14px;
+}
+
+.btn-disconnect {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: transparent;
+  color: var(--error);
+  border: 1px solid var(--error);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-disconnect:hover:not(:disabled) {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.btn-disconnect:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-disconnect svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .instagram-profile .profile-header {
+    flex-wrap: wrap;
+  }
+
+  .profile-info {
+    flex: 1 1 calc(100% - 100px);
+  }
+
+  .profile-actions {
+    flex: 1 1 100%;
+    flex-direction: row;
+    margin-left: 0;
+    margin-top: 16px;
+  }
+
+  .btn-view-profile,
+  .btn-disconnect {
+    flex: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .instagram-card {
+    padding: 16px;
+  }
+
+  .instagram-connect .instagram-header {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .instagram-icon-wrapper {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+  }
+
+  .instagram-icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  .profile-picture,
+  .profile-picture-fallback {
+    width: 64px;
+    height: 64px;
+  }
+
+  .profile-info h3 {
+    font-size: 18px;
+  }
+}
