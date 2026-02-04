@@ -12,6 +12,18 @@
     <link rel="stylesheet" crossorigin href="/Chico-Afiliado/assets/index-C0AavyDN.css">
   </head>
   <body>
+    <script type="text/javascript">
+      // Handle redirect from 404.html for GitHub Pages SPA
+      (function(){
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.pathname.slice(1)) {
+          history.replaceState(null, null,
+            '/' + redirect.replace(/^Chico-Afiliado\//, 'Chico-Afiliado/')
+          );
+        }
+      })();
+    </script>
     <div id="root"></div>
   </body>
 </html>
