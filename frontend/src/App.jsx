@@ -52,7 +52,7 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <Router>
+    <Router basename="/Chico-Afiliado">
       <AuthProvider>
         <AppRoutes />
         <Toaster
