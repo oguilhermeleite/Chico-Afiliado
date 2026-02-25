@@ -213,7 +213,119 @@ const getCommissionBreakdown = async (req, res) => {
   }
 };
 
+// Get list of users who upgraded plans
+const getPlanUpgrades = async (req, res) => {
+  try {
+    const influencerId = req.user.id;
+    const { period = '30' } = req.query;
+    const periodDays = parseInt(period);
+
+    const result = await pool.query(
+      `SELECT
+         user_id,
+         user_name,
+         previous_plan,
+         plan_type as current_plan,
+         plan_upgraded_at,
+         monthly_value
+       FROM conversions
+       WHERE influencer_id = $1
+       AND previous_plan IS NOT NULL
+       AND plan_upgraded_at >= CURRENT_DATE - INTERVAL '${periodDays} days'
+       ORDER BY plan_upgraded_at DESC
+       LIMIT 50`,
+      [influencerId]
+    );
+
+    const countResult = await pool.query(
+      `SELECT COUNT(*) as total
+       FROM conversions
+       WHERE influencer_id = $1
+       AND previous_plan IS NOT NULL
+       AND plan_upgraded_at >= CURRENT_DATE - INTERVAL '${periodDays} days'`,
+      [influencerId]
+    );
+
+    res.json({
+      data: {
+        total_upgrades: parseInt(countResult.rows[0].total),
+        upgrades: result.rows.map(row => ({
+          user_id: row.user_id,
+          user_name: row.user_name || row.user_id?.substring(0, 8) || '—',
+          from_plan: row.previous_plan,
+          to_plan: row.current_plan,
+          upgraded_at: row.plan_upgraded_at,
+          monthly_value: parseFloat(row.monthly_value || 0),
+        })),
+      },
+    });
+  } catch (error) {
+    console.error('Erro ao buscar upgrades de plano:', error);
+    res.status(500).json({ error: 'Erro ao carregar upgrades de plano' });
+  }
+};
+
+// Get percentage distribution of plans
+const getPlanDistribution = async (req, res) => {
+  try {
+    const influencerId = req.user.id;
+    const { period = '30' } = req.query;
+    const periodDays = parseInt(period);
+
+    const result = await pool.query(
+      `SELECT
+         plan_type,
+         COUNT(*) as count
+       FROM conversions
+       WHERE influencer_id = $1
+       AND status = 'paid'
+       AND converted_at >= CURRENT_DATE - INTERVAL '${periodDays} days'
+       GROUP BY plan_type`,
+      [influencerId]
+    );
+
+    const totalResult = await pool.query(
+      `SELECT COUNT(*) as total
+       FROM conversions
+       WHERE influencer_id = $1
+       AND status = 'paid'
+       AND converted_at >= CURRENT_DATE - INTERVAL '${periodDays} days'`,
+      [influencerId]
+    );
+
+    const total = parseInt(totalResult.rows[0].total);
+
+    const distribution = {
+      free: { count: 0, percentage: 0 },
+      starter: { count: 0, percentage: 0 },
+      pro: { count: 0, percentage: 0 },
+    };
+
+    result.rows.forEach(row => {
+      const count = parseInt(row.count);
+      if (distribution[row.plan_type] !== undefined) {
+        distribution[row.plan_type] = {
+          count,
+          percentage: total > 0 ? parseFloat(((count / total) * 100).toFixed(1)) : 0,
+        };
+      }
+    });
+
+    res.json({
+      data: {
+        total_conversions: total,
+        distribution,
+      },
+    });
+  } catch (error) {
+    console.error('Erro ao buscar distribuição de planos:', error);
+    res.status(500).json({ error: 'Erro ao carregar distribuição de planos' });
+  }
+};
+
 module.exports = {
   getConversionsByPlan,
   getCommissionBreakdown,
+  getPlanUpgrades,
+  getPlanDistribution,
 };

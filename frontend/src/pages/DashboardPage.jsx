@@ -35,14 +35,14 @@ const mockMetrics = {
 };
 
 const mockConversions = [
-  { id: '1', user_name: 'João S.',    amount: 250.00, status: 'paid',    converted_at: '2026-01-23T14:30:00Z', chc_moved: 25000, days_since_activity: 2  },
-  { id: '2', user_name: 'Maria L.',   amount: 180.00, status: 'paid',    converted_at: '2026-01-22T10:15:00Z', chc_moved: 18000, days_since_activity: 15 },
-  { id: '3', user_name: 'Carlos M.',  amount: 320.00, status: 'pending', converted_at: '2026-01-22T08:45:00Z', chc_moved: 15000, days_since_activity: 3  },
-  { id: '4', user_name: 'Ana P.',     amount: 150.00, status: 'paid',    converted_at: '2026-01-21T16:20:00Z', chc_moved: 7200,  days_since_activity: 45 },
-  { id: '5', user_name: 'Pedro R.',   amount: 410.00, status: 'paid',    converted_at: '2026-01-20T11:00:00Z', chc_moved: 5800,  days_since_activity: 1  },
-  { id: '6', user_name: 'Lucia F.',   amount: 95.00,  status: 'pending', converted_at: '2026-01-19T09:30:00Z', chc_moved: 3100,  days_since_activity: 25 },
-  { id: '7', user_name: 'Roberto G.', amount: 275.00, status: 'paid',    converted_at: '2026-01-18T13:10:00Z', chc_moved: 4400,  days_since_activity: 60 },
-  { id: '8', user_name: 'Fernanda A.',amount: 200.00, status: 'paid',    converted_at: '2026-01-17T15:45:00Z', chc_moved: 2900,  days_since_activity: 5  },
+  { id: '1', user_name: 'João S.',     plan_type: 'pro',     amount: 250.00, status: 'paid',    converted_at: '2026-01-23T14:30:00Z', chc_moved: 25000, days_since_activity: 2  },
+  { id: '2', user_name: 'Maria L.',    plan_type: 'starter', amount: 180.00, status: 'paid',    converted_at: '2026-01-22T10:15:00Z', chc_moved: 18000, days_since_activity: 15 },
+  { id: '3', user_name: 'Carlos M.',   plan_type: 'pro',     amount: 320.00, status: 'pending', converted_at: '2026-01-22T08:45:00Z', chc_moved: 15000, days_since_activity: 3  },
+  { id: '4', user_name: 'Ana P.',      plan_type: 'starter', amount: 150.00, status: 'paid',    converted_at: '2026-01-21T16:20:00Z', chc_moved: 7200,  days_since_activity: 45 },
+  { id: '5', user_name: 'Pedro R.',    plan_type: 'pro',     amount: 410.00, status: 'paid',    converted_at: '2026-01-20T11:00:00Z', chc_moved: 5800,  days_since_activity: 1  },
+  { id: '6', user_name: 'Lucia F.',    plan_type: 'starter', amount: 95.00,  status: 'pending', converted_at: '2026-01-19T09:30:00Z', chc_moved: 3100,  days_since_activity: 25 },
+  { id: '7', user_name: 'Roberto G.',  plan_type: 'starter', amount: 275.00, status: 'paid',    converted_at: '2026-01-18T13:10:00Z', chc_moved: 4400,  days_since_activity: 60 },
+  { id: '8', user_name: 'Fernanda A.', plan_type: 'pro',     amount: 200.00, status: 'paid',    converted_at: '2026-01-17T15:45:00Z', chc_moved: 2900,  days_since_activity: 5  },
 ];
 
 const mockRetentionData = {
