@@ -5,27 +5,27 @@
   padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  gap: 14px;
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .metric-card:hover {
-  border-color: var(--primary-green);
+  border-color: var(--card-border-hover);
   transform: translateY(-3px);
-  box-shadow: 0 8px 32px rgba(199, 255, 0, 0.08);
+  box-shadow: var(--card-hover-shadow);
 }
 
 .metric-card-header {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 11px;
 }
 
 .metric-card-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: rgba(199, 255, 0, 0.1);
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  background: var(--primary-green-dim);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,44 +35,44 @@
 }
 
 .metric-card:hover .metric-card-icon {
-  background: rgba(199, 255, 0, 0.18);
+  background: rgba(199, 255, 0, 0.2);
 }
 
 .metric-card-title {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: var(--text-secondary);
   line-height: 1.4;
 }
 
 .metric-card-value {
-  font-size: 28px;
-  font-weight: 700;
+  font-family: var(--font-mono);
+  font-size: 26px;
+  font-weight: 500;
   color: var(--text-primary);
-  letter-spacing: -0.5px;
-  line-height: 1.1;
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
 
 /* ─── Desktop (>1280px) ─────────────────────────────── */
 
 @media (min-width: 1280px) {
   .metric-card {
-    padding: 28px;
-    gap: 18px;
+    padding: 26px;
+    gap: 16px;
   }
 
   .metric-card-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
+    width: 42px;
+    height: 42px;
   }
 
   .metric-card-title {
-    font-size: 15px;
+    font-size: 13px;
   }
 
   .metric-card-value {
-    font-size: 32px;
+    font-size: 28px;
   }
 }
 
@@ -80,15 +80,16 @@
 
 @media (min-width: 1440px) {
   .metric-card {
-    padding: 32px;
+    padding: 30px;
   }
 
   .metric-card-icon {
-    width: 52px;
-    height: 52px;
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
   }
 
   .metric-card-value {
-    font-size: 34px;
+    font-size: 30px;
   }
 }

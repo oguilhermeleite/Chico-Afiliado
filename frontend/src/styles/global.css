@@ -1,17 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
 :root {
+  /* Brand */
   --primary-green: #C7FF00;
   --primary-green-hover: #b3e600;
-  --primary-dark: #0A0F0D;
-  --card-dark: #1A1F1D;
-  --card-border: #2A2F2D;
-  --text-primary: #FFFFFF;
-  --text-secondary: #B8B8B8;
-  --text-muted: #6B7280;
+  --primary-green-dim: rgba(199, 255, 0, 0.12);
+  --primary-green-glow: rgba(199, 255, 0, 0.06);
+
+  /* Backgrounds */
+  --primary-dark: #09100D;
+  --card-dark: #131A16;
+  --card-dark-hover: #172019;
+  --card-border: rgba(199, 255, 0, 0.1);
+  --card-border-hover: rgba(199, 255, 0, 0.28);
+
+  /* Text */
+  --text-primary: #F0F5F1;
+  --text-secondary: #9AA89D;
+  --text-muted: #566B5C;
+
+  /* Semantic */
   --success: #22C55E;
   --warning: #F59E0B;
   --error: #EF4444;
   --info: #3B82F6;
-  --card-hover-shadow: 0 8px 32px rgba(199, 255, 0, 0.08);
+
+  /* Shadows */
+  --card-hover-shadow: 0 12px 48px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(199, 255, 0, 0.08);
+  --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+
+  /* Typography */
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Spacing scale */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --space-xxl: 64px;
 }
 
 * {
@@ -21,13 +50,16 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: var(--font-body);
   background-color: var(--primary-dark);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 0% 0%, rgba(199, 255, 0, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(199, 255, 0, 0.02) 0%, transparent 50%);
   color: var(--text-primary);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 #root {
@@ -51,8 +83,41 @@ input {
   outline: none;
 }
 
+/* ─── Global card polish ─────────────────────────────── */
+
+.metric-card,
+.conversions-by-plan-card,
+.commission-breakdown-card,
+.chc-card,
+.retention-card,
+.qs-card,
+.insights-card,
+.plan-distribution-card,
+.referral-card,
+.conversions-card {
+  background: var(--card-dark) !important;
+  border: 1px solid var(--card-border) !important;
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+.metric-card:hover,
+.conversions-by-plan-card:hover,
+.commission-breakdown-card:hover,
+.chc-card:hover,
+.retention-card:hover,
+.qs-card:hover,
+.insights-card:hover,
+.plan-distribution-card:hover,
+.referral-card:hover,
+.conversions-card:hover {
+  border-color: var(--card-border-hover) !important;
+  box-shadow: var(--card-hover-shadow) !important;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────── */
+
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -60,18 +125,10 @@ input {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--card-border);
+  background: rgba(199, 255, 0, 0.15);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
-}
-
-/* ─── Desktop: tipografia base ligeiramente maior ────── */
-
-@media (min-width: 1280px) {
-  body {
-    line-height: 1.6;
-  }
+  background: rgba(199, 255, 0, 0.3);
 }

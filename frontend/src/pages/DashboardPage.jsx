@@ -95,6 +95,20 @@ const mockCHCData = {
   ],
 };
 
+function SectionLabel({ children, delay = 0 }) {
+  return (
+    <motion.div
+      className="section-label"
+      initial={{ opacity: 0, x: -8 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.4, delay }}
+    >
+      <span className="section-label-bar" />
+      {children}
+    </motion.div>
+  );
+}
+
 export default function DashboardPage() {
   const [metrics] = useState(mockMetrics);
   const [conversions] = useState(mockConversions);
@@ -119,11 +133,9 @@ export default function DashboardPage() {
     setChcLoading(true);
     setRetentionLoading(true);
 
-    // Simulate loading for demo
     setTimeout(() => {
       setLoading(false);
 
-      // Mock plan analytics data for demo
       setPlanAnalytics({
         total_conversions: 64,
         total_value: 12450,
@@ -142,45 +154,18 @@ export default function DashboardPage() {
       });
       setAnalyticsLoading(false);
 
-      // Mock commission data for demo
       setCommissionData({
-        totals: {
-          paid: 450.50,
-          pending: 89.76,
-          total: 540.26,
-        },
+        totals: { paid: 450.50, pending: 89.76, total: 540.26 },
         by_plan: {
-          free: {
-            conversions: 0,
-            commission_paid: 0,
-            commission_pending: 0,
-            commission_total: 0,
-            avg_plan_value: 0,
-          },
-          starter: {
-            conversions: 42,
-            commission_paid: 142.16,
-            commission_pending: 25.86,
-            commission_total: 168.02,
-            avg_plan_value: 19.90,
-          },
-          pro: {
-            conversions: 22,
-            commission_paid: 308.34,
-            commission_pending: 63.90,
-            commission_total: 372.24,
-            avg_plan_value: 49.90,
-          },
+          free:    { conversions: 0,  commission_paid: 0,      commission_pending: 0,     commission_total: 0,      avg_plan_value: 0     },
+          starter: { conversions: 42, commission_paid: 142.16, commission_pending: 25.86, commission_total: 168.02, avg_plan_value: 19.90 },
+          pro:     { conversions: 22, commission_paid: 308.34, commission_pending: 63.90, commission_total: 372.24, avg_plan_value: 49.90 },
         },
-        upgrades: {
-          count: 7,
-          total_commission: 69.86,
-        },
+        upgrades: { count: 7, total_commission: 69.86 },
         period_days: period,
       });
       setCommissionLoading(false);
 
-      // Mock CHC data (period-aware slight variation for realism)
       const scaleFactor = period === 7 ? 0.25 : period === 90 ? 2.8 : 1;
       setChcData({
         ...mockCHCData,
@@ -189,7 +174,6 @@ export default function DashboardPage() {
       });
       setChcLoading(false);
 
-      // Mock retention data
       setRetentionData(mockRetentionData);
       setRetentionLoading(false);
     }, 600);
@@ -210,41 +194,13 @@ export default function DashboardPage() {
   };
 
   const metricCards = [
-    {
-      title: 'Ganhos do Mês',
-      value: `R$ ${formatCurrency(metrics.monthEarnings)}`,
-      icon: DollarSign,
-    },
-    {
-      title: 'Usuários Pagantes',
-      value: metrics.totalPaying,
-      icon: Users,
-    },
-    {
-      title: 'Conversões Hoje',
-      value: metrics.todayConversions,
-      icon: TrendingUp,
-    },
-    {
-      title: 'Conversões Esta Semana',
-      value: metrics.weekConversions,
-      icon: Calendar,
-    },
-    {
-      title: 'Conversões Este Mês',
-      value: metrics.monthConversions,
-      icon: CalendarDays,
-    },
-    {
-      title: 'Taxa de Conversão',
-      value: `${metrics.conversionRate}%`,
-      icon: Percent,
-    },
-    {
-      title: 'Ticket Médio',
-      value: `R$ ${formatCurrency(metrics.avgTicket)}`,
-      icon: Receipt,
-    },
+    { title: 'Ganhos do Mês',          value: `R$ ${formatCurrency(metrics.monthEarnings)}`, icon: DollarSign  },
+    { title: 'Usuários Pagantes',       value: metrics.totalPaying,                           icon: Users       },
+    { title: 'Conversões Hoje',         value: metrics.todayConversions,                      icon: TrendingUp  },
+    { title: 'Conversões Esta Semana',  value: metrics.weekConversions,                       icon: Calendar    },
+    { title: 'Conversões Este Mês',     value: metrics.monthConversions,                      icon: CalendarDays},
+    { title: 'Taxa de Conversão',       value: `${metrics.conversionRate}%`,                  icon: Percent     },
+    { title: 'Ticket Médio',            value: `R$ ${formatCurrency(metrics.avgTicket)}`,     icon: Receipt     },
   ];
 
   return (
@@ -252,18 +208,20 @@ export default function DashboardPage() {
       <Header />
 
       <main className="dashboard-content">
+
+        {/* ── Toolbar: período ─────────────────────── */}
         <motion.div
           className="period-selector"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
         >
-          <span className="period-label">Período de visualização:</span>
+          <span className="period-label">Período</span>
           <div className="period-buttons">
             {[
-              { value: 7, label: '7 dias' },
-              { value: 30, label: '30 dias' },
-              { value: 90, label: '90 dias' },
+              { value: 7,  label: '7d'  },
+              { value: 30, label: '30d' },
+              { value: 90, label: '90d' },
             ].map((p) => (
               <button
                 key={p.value}
@@ -283,68 +241,86 @@ export default function DashboardPage() {
           </div>
         ) : (
           <>
-            <InstagramConnect />
+            {/* ── Seção 1: Conexão ─────────────────── */}
+            <section className="dash-section dash-section--connection">
+              <InstagramConnect />
+            </section>
 
-            {/* Linha principal de analytics — 3 colunas no desktop */}
+            {/* ── Seção 2: Métricas principais ─────── */}
+            <section className="dash-section">
+              <SectionLabel delay={0.05}>Métricas Principais</SectionLabel>
+              <div className="metrics-grid">
+                {metricCards.map((card, index) => (
+                  <MetricCard
+                    key={card.title}
+                    title={card.title}
+                    value={card.value}
+                    icon={card.icon}
+                    delay={index * 0.04}
+                  />
+                ))}
+              </div>
+            </section>
+
+            {/* ── Seção 3: Performance ─────────────── */}
             {planAnalytics && (
-              <div className="analytics-primary-grid">
-                <ConversionsByPlan data={planAnalytics} loading={analyticsLoading} />
-                {commissionData && (
-                  <CommissionBreakdown data={commissionData} loading={commissionLoading} />
+              <section className="dash-section">
+                <SectionLabel delay={0.1}>Performance</SectionLabel>
+                <div className="analytics-primary-grid">
+                  <ConversionsByPlan data={planAnalytics} loading={analyticsLoading} />
+                  {commissionData && (
+                    <CommissionBreakdown data={commissionData} loading={commissionLoading} />
+                  )}
+                  <CHCMovement data={chcData} loading={chcLoading} />
+                </div>
+              </section>
+            )}
+
+            {/* ── Seção 4: Qualidade & Retenção ────── */}
+            {planAnalytics && (
+              <section className="dash-section">
+                <SectionLabel delay={0.15}>Qualidade & Retenção</SectionLabel>
+                <div className="analytics-secondary-grid">
+                  <RetentionOverview data={retentionData} loading={retentionLoading} />
+                  <QualityScore
+                    retentionData={retentionData}
+                    chcData={chcData}
+                    metrics={metrics}
+                    loading={retentionLoading || chcLoading}
+                  />
+                  <RetentionInsights
+                    retentionData={retentionData}
+                    chcData={chcData}
+                    loading={retentionLoading}
+                  />
+                </div>
+              </section>
+            )}
+
+            {/* ── Seção 5: Ferramentas de afiliado ─── */}
+            <section className="dash-section">
+              <SectionLabel delay={0.2}>Ferramentas de Afiliado</SectionLabel>
+              <div className="dashboard-bottom-row">
+                <ReferralCard
+                  code={referralCode}
+                  link={referralLink}
+                  onCodeUpdate={handleCodeUpdate}
+                />
+                {planAnalytics && (
+                  <PlanDistribution data={planAnalytics} loading={analyticsLoading} />
                 )}
-                <CHCMovement data={chcData} loading={chcLoading} />
               </div>
-            )}
+            </section>
 
-            {/* Métricas — 4 colunas no desktop */}
-            <div className="metrics-grid">
-              {metricCards.map((card, index) => (
-                <MetricCard
-                  key={card.title}
-                  title={card.title}
-                  value={card.value}
-                  icon={card.icon}
-                  delay={index * 0.05}
-                />
-              ))}
-            </div>
-
-            {/* Analytics secundários — 3 colunas no desktop */}
-            {planAnalytics && (
-              <div className="analytics-secondary-grid">
-                <RetentionOverview data={retentionData} loading={retentionLoading} />
-                <QualityScore
-                  retentionData={retentionData}
-                  chcData={chcData}
-                  metrics={metrics}
-                  loading={retentionLoading || chcLoading}
-                />
-                <RetentionInsights
-                  retentionData={retentionData}
-                  chcData={chcData}
-                  loading={retentionLoading}
-                />
-              </div>
-            )}
-
-            {/* Linha inferior — Link de afiliado + distribuição de planos */}
-            <div className="dashboard-bottom-row">
-              <ReferralCard
-                code={referralCode}
-                link={referralLink}
-                onCodeUpdate={handleCodeUpdate}
+            {/* ── Seção 6: Histórico ───────────────── */}
+            <section className="dash-section dash-section--last">
+              <SectionLabel delay={0.25}>Histórico de Conversões</SectionLabel>
+              <ConversionsTable
+                conversions={conversions}
+                pagination={pagination}
+                onPageChange={handlePageChange}
               />
-              {planAnalytics && (
-                <PlanDistribution data={planAnalytics} loading={analyticsLoading} />
-              )}
-            </div>
-
-            {/* Tabela de conversões — largura total */}
-            <ConversionsTable
-              conversions={conversions}
-              pagination={pagination}
-              onPageChange={handlePageChange}
-            />
+            </section>
           </>
         )}
       </main>
