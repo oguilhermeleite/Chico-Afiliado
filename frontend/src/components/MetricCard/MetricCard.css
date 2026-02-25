@@ -6,12 +6,13 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  transition: border-color 0.2s, transform 0.2s;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 
 .metric-card:hover {
   border-color: var(--primary-green);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(199, 255, 0, 0.08);
 }
 
 .metric-card-header {
@@ -29,12 +30,19 @@
   align-items: center;
   justify-content: center;
   color: var(--primary-green);
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.metric-card:hover .metric-card-icon {
+  background: rgba(199, 255, 0, 0.18);
 }
 
 .metric-card-title {
   font-size: 14px;
   font-weight: 500;
   color: var(--text-secondary);
+  line-height: 1.4;
 }
 
 .metric-card-value {
@@ -42,4 +50,45 @@
   font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+
+/* ─── Desktop (>1280px) ─────────────────────────────── */
+
+@media (min-width: 1280px) {
+  .metric-card {
+    padding: 28px;
+    gap: 18px;
+  }
+
+  .metric-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+  }
+
+  .metric-card-title {
+    font-size: 15px;
+  }
+
+  .metric-card-value {
+    font-size: 32px;
+  }
+}
+
+/* ─── Desktop largo (>1440px) ───────────────────────── */
+
+@media (min-width: 1440px) {
+  .metric-card {
+    padding: 32px;
+  }
+
+  .metric-card-icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .metric-card-value {
+    font-size: 34px;
+  }
 }

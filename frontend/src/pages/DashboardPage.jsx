@@ -285,6 +285,18 @@ export default function DashboardPage() {
           <>
             <InstagramConnect />
 
+            {/* Linha principal de analytics — 3 colunas no desktop */}
+            {planAnalytics && (
+              <div className="analytics-primary-grid">
+                <ConversionsByPlan data={planAnalytics} loading={analyticsLoading} />
+                {commissionData && (
+                  <CommissionBreakdown data={commissionData} loading={commissionLoading} />
+                )}
+                <CHCMovement data={chcData} loading={chcLoading} />
+              </div>
+            )}
+
+            {/* Métricas — 4 colunas no desktop */}
             <div className="metrics-grid">
               {metricCards.map((card, index) => (
                 <MetricCard
@@ -297,44 +309,42 @@ export default function DashboardPage() {
               ))}
             </div>
 
-            <div className="dashboard-main-grid">
-              <div className="dashboard-left-col">
-                <ReferralCard
-                  code={referralCode}
-                  link={referralLink}
-                  onCodeUpdate={handleCodeUpdate}
+            {/* Analytics secundários — 3 colunas no desktop */}
+            {planAnalytics && (
+              <div className="analytics-secondary-grid">
+                <RetentionOverview data={retentionData} loading={retentionLoading} />
+                <QualityScore
+                  retentionData={retentionData}
+                  chcData={chcData}
+                  metrics={metrics}
+                  loading={retentionLoading || chcLoading}
                 />
-                {planAnalytics && (
-                  <>
-                    <ConversionsByPlan data={planAnalytics} loading={analyticsLoading} />
-                    {commissionData && (
-                      <CommissionBreakdown data={commissionData} loading={commissionLoading} />
-                    )}
-                    <CHCMovement data={chcData} loading={chcLoading} />
-                    <RetentionOverview data={retentionData} loading={retentionLoading} />
-                    <QualityScore
-                      retentionData={retentionData}
-                      chcData={chcData}
-                      metrics={metrics}
-                      loading={retentionLoading || chcLoading}
-                    />
-                    <RetentionInsights
-                      retentionData={retentionData}
-                      chcData={chcData}
-                      loading={retentionLoading}
-                    />
-                    <PlanDistribution data={planAnalytics} loading={analyticsLoading} />
-                  </>
-                )}
-              </div>
-              <div className="dashboard-right-col">
-                <ConversionsTable
-                  conversions={conversions}
-                  pagination={pagination}
-                  onPageChange={handlePageChange}
+                <RetentionInsights
+                  retentionData={retentionData}
+                  chcData={chcData}
+                  loading={retentionLoading}
                 />
               </div>
+            )}
+
+            {/* Linha inferior — Link de afiliado + distribuição de planos */}
+            <div className="dashboard-bottom-row">
+              <ReferralCard
+                code={referralCode}
+                link={referralLink}
+                onCodeUpdate={handleCodeUpdate}
+              />
+              {planAnalytics && (
+                <PlanDistribution data={planAnalytics} loading={analyticsLoading} />
+              )}
             </div>
+
+            {/* Tabela de conversões — largura total */}
+            <ConversionsTable
+              conversions={conversions}
+              pagination={pagination}
+              onPageChange={handlePageChange}
+            />
           </>
         )}
       </main>

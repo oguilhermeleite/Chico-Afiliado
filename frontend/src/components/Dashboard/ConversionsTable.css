@@ -63,6 +63,7 @@
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 .conversions-table td {
@@ -70,6 +71,15 @@
   font-size: 14px;
   color: var(--text-secondary);
   border-bottom: 1px solid rgba(42, 47, 45, 0.5);
+  transition: background 0.15s;
+}
+
+.conversions-table tbody tr {
+  transition: background 0.15s;
+}
+
+.conversions-table tbody tr:hover td {
+  background: rgba(199, 255, 0, 0.03);
 }
 
 .conversions-table tr:last-child td {
@@ -191,6 +201,39 @@
   font-size: 13px;
   color: var(--text-muted);
 }
+
+/* ─── Desktop (>1280px) ─────────────────────────────── */
+
+@media (min-width: 1280px) {
+  .conversions-card {
+    padding: 32px;
+  }
+
+  .conversions-header-left h3 {
+    font-size: 18px;
+  }
+
+  .conversions-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .conversions-table th {
+    padding: 14px 20px;
+    font-size: 13px;
+  }
+
+  .conversions-table td {
+    padding: 16px 20px;
+    font-size: 15px;
+  }
+
+  .conversions-table .chc-moved-cell {
+    font-size: 14px;
+  }
+}
+
+/* ─── Mobile (≤640px) ───────────────────────────────── */
 
 @media (max-width: 640px) {
   .conversions-card {

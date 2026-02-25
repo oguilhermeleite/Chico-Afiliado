@@ -11,6 +11,7 @@
   --warning: #F59E0B;
   --error: #EF4444;
   --info: #3B82F6;
+  --card-hover-shadow: 0 8px 32px rgba(199, 255, 0, 0.08);
 }
 
 * {
@@ -26,6 +27,7 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
 }
 
 #root {
@@ -64,4 +66,12 @@ input {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
+}
+
+/* ─── Desktop: tipografia base ligeiramente maior ────── */
+
+@media (min-width: 1280px) {
+  body {
+    line-height: 1.6;
+  }
 }
