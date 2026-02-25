@@ -10,4 +10,7 @@ router.use(authMiddleware);
 // Análise de conversões por plano
 router.get('/conversions-by-plan', analyticsController.getConversionsByPlan);
 
+// Breakdown de comissões por plano
+router.get('/commission/breakdown', analyticsController.getCommissionBreakdown);
+
 module.exports = router;

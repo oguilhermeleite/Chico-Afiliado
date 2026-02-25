@@ -104,6 +104,116 @@ const getConversionsByPlan = async (req, res) => {
   }
 };
 
+// Get commission breakdown by plan type
+const getCommissionBreakdown = async (req, res) => {
+  try {
+    const influencerId = req.user.id;
+    const { period = '30' } = req.query;
+    const periodDays = parseInt(period);
+
+    // Total commissions (paid + pending) in period
+    const totalsResult = await pool.query(
+      `SELECT
+         COALESCE(SUM(CASE WHEN status = 'paid' THEN commission_amount ELSE 0 END), 0) as total_paid,
+         COALESCE(SUM(CASE WHEN status = 'pending' THEN commission_amount ELSE 0 END), 0) as total_pending,
+         COALESCE(SUM(commission_amount), 0) as total_all
+       FROM conversions
+       WHERE influencer_id = $1
+       AND converted_at >= CURRENT_DATE - INTERVAL '${periodDays} days'`,
+      [influencerId]
+    );
+
+    const totals = {
+      paid: parseFloat(totalsResult.rows[0].total_paid),
+      pending: parseFloat(totalsResult.rows[0].total_pending),
+      total: parseFloat(totalsResult.rows[0].total_all),
+    };
+
+    // Breakdown by plan type
+    const byPlanResult = await pool.query(
+      `SELECT
+         plan_type,
+         COUNT(*) as conversions_count,
+         COALESCE(SUM(CASE WHEN status = 'paid' THEN commission_amount ELSE 0 END), 0) as commission_paid,
+         COALESCE(SUM(CASE WHEN status = 'pending' THEN commission_amount ELSE 0 END), 0) as commission_pending,
+         COALESCE(SUM(commission_amount), 0) as commission_total,
+         COALESCE(AVG(plan_monthly_value), 0) as avg_plan_value
+       FROM conversions
+       WHERE influencer_id = $1
+       AND converted_at >= CURRENT_DATE - INTERVAL '${periodDays} days'
+       GROUP BY plan_type
+       ORDER BY plan_type`,
+      [influencerId]
+    );
+
+    // Format by_plan data
+    const byPlan = {
+      free: {
+        conversions: 0,
+        commission_paid: 0,
+        commission_pending: 0,
+        commission_total: 0,
+        avg_plan_value: 0,
+      },
+      starter: {
+        conversions: 0,
+        commission_paid: 0,
+        commission_pending: 0,
+        commission_total: 0,
+        avg_plan_value: 19.90,
+      },
+      pro: {
+        conversions: 0,
+        commission_paid: 0,
+        commission_pending: 0,
+        commission_total: 0,
+        avg_plan_value: 49.90,
+      },
+    };
+
+    byPlanResult.rows.forEach(row => {
+      byPlan[row.plan_type] = {
+        conversions: parseInt(row.conversions_count),
+        commission_paid: parseFloat(row.commission_paid),
+        commission_pending: parseFloat(row.commission_pending),
+        commission_total: parseFloat(row.commission_total),
+        avg_plan_value: parseFloat(row.avg_plan_value),
+      };
+    });
+
+    // Commission from upgrades
+    const upgradesResult = await pool.query(
+      `SELECT
+         COUNT(*) as count,
+         COALESCE(SUM(commission_amount), 0) as total_commission
+       FROM conversions
+       WHERE influencer_id = $1
+       AND status = 'paid'
+       AND previous_plan IS NOT NULL
+       AND converted_at >= CURRENT_DATE - INTERVAL '${periodDays} days'`,
+      [influencerId]
+    );
+
+    const upgrades = {
+      count: parseInt(upgradesResult.rows[0].count),
+      total_commission: parseFloat(upgradesResult.rows[0].total_commission),
+    };
+
+    res.json({
+      data: {
+        totals,
+        by_plan: byPlan,
+        upgrades,
+        period_days: periodDays,
+      },
+    });
+  } catch (error) {
+    console.error('Erro ao buscar breakdown de comissões:', error);
+    res.status(500).json({ error: 'Erro ao carregar comissões' });
+  }
+};
+
 module.exports = {
   getConversionsByPlan,
+  getCommissionBreakdown,
 };
