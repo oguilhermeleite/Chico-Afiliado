@@ -1,0 +1,57 @@
+.chc-trend-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chc-trend-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.chc-trend-wrapper {
+  width: 100%;
+}
+
+.chc-trend-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Custom Tooltip */
+.chc-tooltip {
+  background: var(--card-dark);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.chc-tooltip-date {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.chc-tooltip-value {
+  font-size: 13px;
+  font-weight: 700;
+  color: #C7FF00;
+}
+
+/* Hide trend chart on mobile */
+@media (max-width: 640px) {
+  .chc-trend-chart {
+    display: none;
+  }
+}

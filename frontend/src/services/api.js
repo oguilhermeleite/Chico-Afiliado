@@ -62,6 +62,14 @@ export const referralAPI = {
 // Analytics
 export const analyticsAPI = {
   getConversionsByPlan: (period = 30) => api.get(`/analytics/conversions-by-plan?period=${period}`),
+  getCommissionBreakdown: (period = 30) => api.get(`/analytics/commission/breakdown?period=${period}`),
+};
+
+// CHC (Chico Coin) — 1000 CHC = R$ 1,00
+export const chcAPI = {
+  getTotalMoved: (period = 30) => api.get(`/chc/total-moved?period=${period}`),
+  getAveragePerUser: (period = 30) => api.get(`/chc/average-per-user?period=${period}`),
+  getBreakdown: (period = 30) => api.get(`/chc/breakdown?period=${period}`),
 };
 
 export default api;

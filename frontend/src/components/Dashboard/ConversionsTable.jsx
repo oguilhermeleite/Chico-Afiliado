@@ -2,6 +2,22 @@ import { motion } from 'framer-motion';
 import { Table, ChevronLeft, ChevronRight } from 'lucide-react';
 import './ConversionsTable.css';
 
+const CHC_HIGH_COLOR = '#00FF87';
+const CHC_MED_COLOR  = '#FFA500';
+const CHC_LOW_COLOR  = '#B8B8B8';
+
+function getCHCColor(chcMoved) {
+  if (!chcMoved) return CHC_LOW_COLOR;
+  if (chcMoved > 10000) return CHC_HIGH_COLOR;
+  if (chcMoved >= 5000) return CHC_MED_COLOR;
+  return CHC_LOW_COLOR;
+}
+
+function formatCHCShort(chcMoved) {
+  if (!chcMoved) return '—';
+  return chcMoved.toLocaleString('pt-BR') + ' CHC';
+}
+
 export default function ConversionsTable({ conversions, pagination, onPageChange }) {
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('pt-BR', {
@@ -46,6 +62,7 @@ export default function ConversionsTable({ conversions, pagination, onPageChange
               <th>Data</th>
               <th>Usuário</th>
               <th>Plano</th>
+              <th>🪙 CHC Movimentado</th>
               <th>Valor</th>
               <th>Status</th>
             </tr>
@@ -53,7 +70,7 @@ export default function ConversionsTable({ conversions, pagination, onPageChange
           <tbody>
             {conversions.length === 0 ? (
               <tr>
-                <td colSpan="5" className="empty-row">
+                <td colSpan="6" className="empty-row">
                   Nenhuma conversão encontrada
                 </td>
               </tr>
@@ -69,6 +86,12 @@ export default function ConversionsTable({ conversions, pagination, onPageChange
                       {conversion.plan_type === 'pro' && '💎 Pro'}
                       {!conversion.plan_type && '⭐ Starter'}
                     </span>
+                  </td>
+                  <td
+                    className="chc-moved-cell"
+                    style={{ color: getCHCColor(conversion.chc_moved), fontWeight: 600 }}
+                  >
+                    {formatCHCShort(conversion.chc_moved)}
                   </td>
                   <td className="amount">{formatCurrency(conversion.amount)}</td>
                   <td>

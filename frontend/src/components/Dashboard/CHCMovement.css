@@ -1,0 +1,378 @@
+/* ─── Card base ─────────────────────────────────────────────── */
+.chc-card {
+  background: var(--card-dark);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: all 0.3s ease;
+}
+
+.chc-card:hover {
+  border-color: var(--primary-green);
+  transform: translateY(-2px);
+}
+
+.chc-card.loading {
+  min-height: 320px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── Loading spinner ────────────────────────────────────────── */
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--card-border);
+  border-top-color: var(--primary-green);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Header ────────────────────────────────────────────────── */
+.chc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.chc-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.chc-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(199, 255, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.chc-header-left h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.chc-badge-tooltip {
+  cursor: help;
+  flex-shrink: 0;
+}
+
+.chc-info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(199, 255, 0, 0.1);
+  border: 1px solid rgba(199, 255, 0, 0.2);
+  color: var(--primary-green);
+  font-size: 13px;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1;
+}
+
+/* ─── Summary ───────────────────────────────────────────────── */
+.chc-summary {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: rgba(42, 47, 45, 0.3);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.chc-summary-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chc-summary-divider {
+  width: 1px;
+  height: 48px;
+  background: var(--card-border);
+  margin: 0 20px;
+  flex-shrink: 0;
+}
+
+.chc-summary-avg {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chc-summary-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.chc-summary-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #C7FF00;
+  letter-spacing: -0.3px;
+}
+
+.chc-summary-real {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.chc-avg-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+/* ─── Section title ─────────────────────────────────────────── */
+.chc-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+/* ─── Breakdown ─────────────────────────────────────────────── */
+.chc-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chc-type-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.chc-type-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 80px;
+  flex-shrink: 0;
+}
+
+.chc-type-emoji {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.chc-type-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.chc-type-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.chc-type-bar-wrap {
+  height: 5px;
+  background: rgba(42, 47, 45, 0.6);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.chc-type-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #C7FF00 0%, #00FF87 100%);
+  border-radius: 10px;
+}
+
+.chc-type-stat {
+  font-size: 12px;
+  color: #C7FF00;
+  font-weight: 600;
+}
+
+.chc-type-pct {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* ─── Top usuários ──────────────────────────────────────────── */
+.chc-top-users {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chc-top-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chc-top-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(42, 47, 45, 0.2);
+  border-radius: 10px;
+  border: 1px solid var(--card-border);
+  transition: background 0.2s;
+}
+
+.chc-top-row:hover {
+  background: rgba(42, 47, 45, 0.4);
+}
+
+.chc-top-rank {
+  font-size: 16px;
+  width: 24px;
+  flex-shrink: 0;
+}
+
+.chc-top-name {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.chc-top-amount {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* ─── Engagement indicator ──────────────────────────────────── */
+.chc-engagement {
+  padding: 16px;
+  background: rgba(199, 255, 0, 0.04);
+  border: 1px solid rgba(199, 255, 0, 0.15);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chc-engagement-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chc-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.chc-star {
+  font-size: 14px;
+  line-height: 1;
+  transition: opacity 0.2s;
+}
+
+.chc-engagement-label {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.chc-engagement-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.chc-engagement-compare {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(199, 255, 0, 0.1);
+}
+
+.chc-engagement-mine {
+  font-size: 12px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.chc-engagement-platform {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.chc-engagement-above {
+  font-size: 12px;
+  color: #00FF87;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* ─── Responsive ────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .chc-card {
+    padding: 20px;
+  }
+
+  .chc-header-left h3 {
+    font-size: 14px;
+  }
+
+  .chc-summary {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .chc-summary-divider {
+    width: 100%;
+    height: 1px;
+    margin: 0;
+  }
+
+  .chc-summary-value {
+    font-size: 18px;
+  }
+
+  .chc-avg-value {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chc-card {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .chc-type-left {
+    width: 70px;
+  }
+
+  .chc-type-stat {
+    font-size: 11px;
+  }
+}
