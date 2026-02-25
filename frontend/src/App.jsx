@@ -52,7 +52,7 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <Router basename="/Chico-Afiliado">
+    <Router basename={import.meta.env.VITE_BASE_PATH || '/'}>
       <AuthProvider>
         <AppRoutes />
         <Toaster
