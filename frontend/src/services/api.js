@@ -65,6 +65,13 @@ export const analyticsAPI = {
   getCommissionBreakdown: (period = 30) => api.get(`/analytics/commission/breakdown?period=${period}`),
 };
 
+// Retenção e qualidade de conversões
+export const retentionAPI = {
+  getOverview: () => api.get('/retention/overview'),
+  getUserActivity: (params) => api.get('/retention/user-activity', { params }),
+  trackActivity: (userId) => api.post('/retention/track-activity', { user_id: userId }),
+};
+
 // CHC (Chico Coin) — 1000 CHC = R$ 1,00
 export const chcAPI = {
   getTotalMoved: (period = 30) => api.get(`/chc/total-moved?period=${period}`),

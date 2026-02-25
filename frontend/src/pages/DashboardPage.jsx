@@ -17,6 +17,9 @@ import ConversionsByPlan from '../components/Dashboard/ConversionsByPlan';
 import PlanDistribution from '../components/Dashboard/PlanDistribution';
 import CommissionBreakdown from '../components/Dashboard/CommissionBreakdown';
 import CHCMovement from '../components/Dashboard/CHCMovement';
+import RetentionOverview from '../components/Dashboard/RetentionOverview';
+import QualityScore from '../components/Dashboard/QualityScore';
+import RetentionInsights from '../components/Dashboard/RetentionInsights';
 import InstagramConnect from '../components/InstagramConnect';
 import { analyticsAPI } from '../services/api';
 import './DashboardPage.css';
@@ -32,15 +35,38 @@ const mockMetrics = {
 };
 
 const mockConversions = [
-  { id: '1', user_name: 'João S.',    amount: 250.00, status: 'paid',    converted_at: '2026-01-23T14:30:00Z', chc_moved: 25000 },
-  { id: '2', user_name: 'Maria L.',   amount: 180.00, status: 'paid',    converted_at: '2026-01-22T10:15:00Z', chc_moved: 18000 },
-  { id: '3', user_name: 'Carlos M.',  amount: 320.00, status: 'pending', converted_at: '2026-01-22T08:45:00Z', chc_moved: 15000 },
-  { id: '4', user_name: 'Ana P.',     amount: 150.00, status: 'paid',    converted_at: '2026-01-21T16:20:00Z', chc_moved: 7200  },
-  { id: '5', user_name: 'Pedro R.',   amount: 410.00, status: 'paid',    converted_at: '2026-01-20T11:00:00Z', chc_moved: 5800  },
-  { id: '6', user_name: 'Lucia F.',   amount: 95.00,  status: 'pending', converted_at: '2026-01-19T09:30:00Z', chc_moved: 3100  },
-  { id: '7', user_name: 'Roberto G.', amount: 275.00, status: 'paid',    converted_at: '2026-01-18T13:10:00Z', chc_moved: 4400  },
-  { id: '8', user_name: 'Fernanda A.',amount: 200.00, status: 'paid',    converted_at: '2026-01-17T15:45:00Z', chc_moved: 2900  },
+  { id: '1', user_name: 'João S.',    amount: 250.00, status: 'paid',    converted_at: '2026-01-23T14:30:00Z', chc_moved: 25000, days_since_activity: 2  },
+  { id: '2', user_name: 'Maria L.',   amount: 180.00, status: 'paid',    converted_at: '2026-01-22T10:15:00Z', chc_moved: 18000, days_since_activity: 15 },
+  { id: '3', user_name: 'Carlos M.',  amount: 320.00, status: 'pending', converted_at: '2026-01-22T08:45:00Z', chc_moved: 15000, days_since_activity: 3  },
+  { id: '4', user_name: 'Ana P.',     amount: 150.00, status: 'paid',    converted_at: '2026-01-21T16:20:00Z', chc_moved: 7200,  days_since_activity: 45 },
+  { id: '5', user_name: 'Pedro R.',   amount: 410.00, status: 'paid',    converted_at: '2026-01-20T11:00:00Z', chc_moved: 5800,  days_since_activity: 1  },
+  { id: '6', user_name: 'Lucia F.',   amount: 95.00,  status: 'pending', converted_at: '2026-01-19T09:30:00Z', chc_moved: 3100,  days_since_activity: 25 },
+  { id: '7', user_name: 'Roberto G.', amount: 275.00, status: 'paid',    converted_at: '2026-01-18T13:10:00Z', chc_moved: 4400,  days_since_activity: 60 },
+  { id: '8', user_name: 'Fernanda A.',amount: 200.00, status: 'paid',    converted_at: '2026-01-17T15:45:00Z', chc_moved: 2900,  days_since_activity: 5  },
 ];
+
+const mockRetentionData = {
+  total_users: 87,
+  active_users: 68,
+  churned_users: 19,
+  retention_rates: { '7_days': 92, '30_days': 78, '60_days': 65 },
+  by_plan: {
+    starter: { retention_30d: 72, avg_activity_days: 22 },
+    pro:     { retention_30d: 85, avg_activity_days: 28 },
+  },
+  upgrade_rate: 23,
+  upgrade_paths: [
+    { from: 'Free', to: 'Starter', count: 12 },
+    { from: 'Starter', to: 'Pro',  count: 8  },
+  ],
+  average_lifetime_days: 45,
+  trend: [
+    { week: 'Sem 1', ret_7d: 95, ret_30d: 82, ret_60d: 70 },
+    { week: 'Sem 2', ret_7d: 93, ret_30d: 80, ret_60d: 68 },
+    { week: 'Sem 3', ret_7d: 91, ret_30d: 79, ret_60d: 66 },
+    { week: 'Sem 4', ret_7d: 92, ret_30d: 78, ret_60d: 65 },
+  ],
+};
 
 const mockCHCData = {
   total_chc_moved: 450000,
@@ -83,12 +109,15 @@ export default function DashboardPage() {
   const [commissionLoading, setCommissionLoading] = useState(true);
   const [chcData, setChcData] = useState(null);
   const [chcLoading, setChcLoading] = useState(true);
+  const [retentionData, setRetentionData] = useState(null);
+  const [retentionLoading, setRetentionLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
     setAnalyticsLoading(true);
     setCommissionLoading(true);
     setChcLoading(true);
+    setRetentionLoading(true);
 
     // Simulate loading for demo
     setTimeout(() => {
@@ -159,6 +188,10 @@ export default function DashboardPage() {
         real_value: parseFloat((mockCHCData.real_value * scaleFactor).toFixed(2)),
       });
       setChcLoading(false);
+
+      // Mock retention data
+      setRetentionData(mockRetentionData);
+      setRetentionLoading(false);
     }, 600);
   }, [period]);
 
@@ -278,6 +311,18 @@ export default function DashboardPage() {
                       <CommissionBreakdown data={commissionData} loading={commissionLoading} />
                     )}
                     <CHCMovement data={chcData} loading={chcLoading} />
+                    <RetentionOverview data={retentionData} loading={retentionLoading} />
+                    <QualityScore
+                      retentionData={retentionData}
+                      chcData={chcData}
+                      metrics={metrics}
+                      loading={retentionLoading || chcLoading}
+                    />
+                    <RetentionInsights
+                      retentionData={retentionData}
+                      chcData={chcData}
+                      loading={retentionLoading}
+                    />
                     <PlanDistribution data={planAnalytics} loading={analyticsLoading} />
                   </>
                 )}

@@ -1,0 +1,193 @@
+/* ─── Card ──────────────────────────────────────────────────── */
+.qs-card {
+  background: var(--card-dark);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  transition: all 0.3s ease;
+}
+
+.qs-card:hover {
+  border-color: var(--primary-green);
+  transform: translateY(-2px);
+}
+
+.qs-card.loading {
+  min-height: 260px;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--card-border);
+  border-top-color: var(--primary-green);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── Header ────────────────────────────────────────────────── */
+.qs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.qs-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.qs-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(199, 255, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.qs-header-left h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.qs-stars {
+  display: flex;
+  gap: 2px;
+  font-size: 16px;
+}
+
+/* ─── Score section ─────────────────────────────────────────── */
+.qs-score-section {
+  text-align: center;
+  padding: 8px 0;
+}
+
+.qs-score-number {
+  font-size: 56px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1;
+}
+
+.qs-score-max {
+  font-size: 24px;
+  font-weight: 600;
+  opacity: 0.6;
+  letter-spacing: 0;
+}
+
+.qs-score-label {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+.qs-score-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+/* ─── Score bar ─────────────────────────────────────────────── */
+.qs-bar-wrap {
+  position: relative;
+}
+
+.qs-bar-bg {
+  height: 8px;
+  background: rgba(42, 47, 45, 0.6);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.qs-bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.qs-bar-ticks {
+  position: relative;
+  height: 6px;
+  margin-top: 4px;
+}
+
+.qs-tick {
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  background: rgba(107, 114, 128, 0.4);
+  transform: translateX(-50%);
+}
+
+/* ─── Section title ─────────────────────────────────────────── */
+.qs-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+/* ─── Factors ────────────────────────────────────────────────── */
+.qs-factors {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.qs-factor-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  padding: 4px 0;
+}
+
+.qs-factor-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+  width: 20px;
+}
+
+.qs-factor-label {
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.qs-factor-value {
+  font-weight: 700;
+}
+
+.qs-factor-qualifier {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .qs-card { padding: 20px; }
+  .qs-score-number { font-size: 44px; }
+  .qs-score-label  { font-size: 17px; }
+}
+
+@media (max-width: 480px) {
+  .qs-card { padding: 16px; gap: 14px; }
+  .qs-score-number { font-size: 38px; }
+  .qs-factor-qualifier { display: none; }
+}

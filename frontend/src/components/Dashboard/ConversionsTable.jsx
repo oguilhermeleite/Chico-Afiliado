@@ -6,6 +6,13 @@ const CHC_HIGH_COLOR = '#00FF87';
 const CHC_MED_COLOR  = '#FFA500';
 const CHC_LOW_COLOR  = '#B8B8B8';
 
+function getActivityStatus(daysSince) {
+  if (daysSince === undefined || daysSince === null) return null;
+  if (daysSince < 7)  return { emoji: '🟢', label: 'Ativo',   days: daysSince, color: '#00FF87' };
+  if (daysSince < 30) return { emoji: '🟡', label: 'Inativo', days: daysSince, color: '#FFA500' };
+  return                     { emoji: '🔴', label: 'Churned', days: daysSince, color: '#FF3B3B' };
+}
+
 function getCHCColor(chcMoved) {
   if (!chcMoved) return CHC_LOW_COLOR;
   if (chcMoved > 10000) return CHC_HIGH_COLOR;
@@ -63,6 +70,7 @@ export default function ConversionsTable({ conversions, pagination, onPageChange
               <th>Usuário</th>
               <th>Plano</th>
               <th>🪙 CHC Movimentado</th>
+              <th>Atividade</th>
               <th>Valor</th>
               <th>Status</th>
             </tr>
@@ -70,37 +78,51 @@ export default function ConversionsTable({ conversions, pagination, onPageChange
           <tbody>
             {conversions.length === 0 ? (
               <tr>
-                <td colSpan="6" className="empty-row">
+                <td colSpan="7" className="empty-row">
                   Nenhuma conversão encontrada
                 </td>
               </tr>
             ) : (
-              conversions.map((conversion) => (
-                <tr key={conversion.id}>
-                  <td>{formatDate(conversion.converted_at)}</td>
-                  <td>{conversion.user_name || conversion.user_id?.substring(0, 8) || '—'}</td>
-                  <td>
-                    <span className={`plan-badge ${conversion.plan_type || 'starter'}`}>
-                      {conversion.plan_type === 'free' && '🆓 Free'}
-                      {conversion.plan_type === 'starter' && '⭐ Starter'}
-                      {conversion.plan_type === 'pro' && '💎 Pro'}
-                      {!conversion.plan_type && '⭐ Starter'}
-                    </span>
-                  </td>
-                  <td
-                    className="chc-moved-cell"
-                    style={{ color: getCHCColor(conversion.chc_moved), fontWeight: 600 }}
-                  >
-                    {formatCHCShort(conversion.chc_moved)}
-                  </td>
-                  <td className="amount">{formatCurrency(conversion.amount)}</td>
-                  <td>
-                    <span className={`status-badge ${conversion.status}`}>
-                      {conversion.status === 'paid' ? 'Pago' : 'Pendente'}
-                    </span>
-                  </td>
-                </tr>
-              ))
+              conversions.map((conversion) => {
+                const activity = getActivityStatus(conversion.days_since_activity);
+                return (
+                  <tr key={conversion.id}>
+                    <td>{formatDate(conversion.converted_at)}</td>
+                    <td>{conversion.user_name || conversion.user_id?.substring(0, 8) || '—'}</td>
+                    <td>
+                      <span className={`plan-badge ${conversion.plan_type || 'starter'}`}>
+                        {conversion.plan_type === 'free' && '🆓 Free'}
+                        {conversion.plan_type === 'starter' && '⭐ Starter'}
+                        {conversion.plan_type === 'pro' && '💎 Pro'}
+                        {!conversion.plan_type && '⭐ Starter'}
+                      </span>
+                    </td>
+                    <td
+                      className="chc-moved-cell"
+                      style={{ color: getCHCColor(conversion.chc_moved), fontWeight: 600 }}
+                    >
+                      {formatCHCShort(conversion.chc_moved)}
+                    </td>
+                    <td className="activity-cell">
+                      {activity ? (
+                        <span
+                          className="activity-badge"
+                          style={{ color: activity.color, borderColor: `${activity.color}40` }}
+                        >
+                          {activity.emoji} {activity.label}
+                          <span className="activity-days"> ({activity.days}d)</span>
+                        </span>
+                      ) : '—'}
+                    </td>
+                    <td className="amount">{formatCurrency(conversion.amount)}</td>
+                    <td>
+                      <span className={`status-badge ${conversion.status}`}>
+                        {conversion.status === 'paid' ? 'Pago' : 'Pendente'}
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>

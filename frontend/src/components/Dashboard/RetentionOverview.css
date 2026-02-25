@@ -1,0 +1,349 @@
+/* ─── Card ──────────────────────────────────────────────────── */
+.retention-card {
+  background: var(--card-dark);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  transition: all 0.3s ease;
+}
+
+.retention-card:hover {
+  border-color: var(--primary-green);
+  transform: translateY(-2px);
+}
+
+.retention-card.loading {
+  min-height: 300px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── Loading ────────────────────────────────────────────────── */
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--card-border);
+  border-top-color: var(--primary-green);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── Header ────────────────────────────────────────────────── */
+.ret-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ret-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ret-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(199, 255, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.ret-header-left h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.ret-header-badge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid currentColor;
+  background: rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+}
+
+/* ─── Main retention bar ────────────────────────────────────── */
+.ret-main {
+  background: rgba(42, 47, 45, 0.3);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ret-main-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.ret-main-title {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.ret-main-count {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.ret-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ret-bar-wrap > :first-child {
+  /* The motion div fills the remaining width */
+  flex: 1;
+}
+
+.ret-bar-pct {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+}
+
+.ret-churn-note {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.ret-churn {
+  color: #FF3B3B;
+}
+
+.ret-lifetime {
+  color: var(--text-muted);
+}
+
+/* Main bar: the motion.div sits inside ret-bar-wrap as first child */
+.ret-bar-outer {
+  flex: 1;
+  height: 10px;
+  background: rgba(42, 47, 45, 0.6);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.ret-bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #C7FF00 0%, #00FF87 100%);
+}
+
+/* ─── Section title ─────────────────────────────────────────── */
+.ret-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+/* ─── Periods ────────────────────────────────────────────────── */
+.ret-periods {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ret-period-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ret-period-left {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 64px;
+  flex-shrink: 0;
+}
+
+.ret-period-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.ret-period-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.ret-period-bar-wrap {
+  flex: 1;
+}
+
+.ret-period-bar-bg {
+  height: 5px;
+  background: rgba(42, 47, 45, 0.6);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.ret-period-bar-fill {
+  height: 100%;
+  border-radius: 10px;
+}
+
+.ret-period-stat {
+  font-size: 12px;
+  white-space: nowrap;
+  min-width: 110px;
+  text-align: right;
+}
+
+.ret-period-users {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* ─── Upgrades ───────────────────────────────────────────────── */
+.ret-upgrades {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ret-upgrade-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ret-upgrade-count {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.ret-upgrade-rate {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ret-upgrade-paths {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ret-upgrade-path {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(42, 47, 45, 0.2);
+  border-radius: 8px;
+  border: 1px solid var(--card-border);
+  font-size: 12px;
+}
+
+.ret-path-from {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.ret-path-arrow {
+  color: var(--text-muted);
+}
+
+.ret-path-to {
+  color: var(--primary-green);
+  font-weight: 600;
+  flex: 1;
+}
+
+.ret-path-count {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ─── By plan ────────────────────────────────────────────────── */
+.ret-by-plan {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ret-plan-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ret-plan-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: rgba(42, 47, 45, 0.2);
+  border-radius: 10px;
+  border: 1px solid var(--card-border);
+  transition: background 0.2s;
+}
+
+.ret-plan-row:hover {
+  background: rgba(42, 47, 45, 0.4);
+}
+
+.ret-plan-badge {
+  font-size: 13px;
+  font-weight: 600;
+  width: 90px;
+  flex-shrink: 0;
+}
+
+.ret-plan-rate {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.ret-plan-label {
+  font-size: 12px;
+  font-weight: 600;
+  flex: 1;
+}
+
+.ret-plan-days {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ─── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .retention-card { padding: 20px; }
+  .ret-header-left h3 { font-size: 14px; }
+  .ret-period-stat { min-width: 90px; }
+}
+
+@media (max-width: 480px) {
+  .retention-card { padding: 16px; gap: 16px; }
+  .ret-main { padding: 12px; }
+  .ret-bar-pct { font-size: 18px; }
+  .ret-plan-badge { width: 75px; }
+}

@@ -12,6 +12,7 @@ const dashboardRoutes = require('./routes/dashboard');
 const referralRoutes = require('./routes/referral');
 const analyticsRoutes = require('./routes/analytics');
 const chcRoutes = require('./routes/chc');
+const retentionRoutes = require('./routes/retention');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -45,6 +46,7 @@ app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/referral', referralRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/chc', chcRoutes);
+app.use('/api/retention', retentionRoutes);
 
 // Rota de saúde
 app.get('/api/health', (req, res) => {
