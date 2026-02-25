@@ -13,7 +13,10 @@ import Header from '../components/Dashboard/Header';
 import MetricCard from '../components/MetricCard/MetricCard';
 import ReferralCard from '../components/Dashboard/ReferralCard';
 import ConversionsTable from '../components/Dashboard/ConversionsTable';
+import ConversionsByPlan from '../components/Dashboard/ConversionsByPlan';
+import PlanDistribution from '../components/Dashboard/PlanDistribution';
 import InstagramConnect from '../components/InstagramConnect';
+import { analyticsAPI } from '../services/api';
 import './DashboardPage.css';
 
 const mockMetrics = {
@@ -45,9 +48,36 @@ export default function DashboardPage() {
   const [referralLink, setReferralLink] = useState('https://chicoai.com.br/ref/CHICO_DEMO12345');
   const [period, setPeriod] = useState(30);
   const [loading, setLoading] = useState(true);
+  const [planAnalytics, setPlanAnalytics] = useState(null);
+  const [analyticsLoading, setAnalyticsLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 600);
+    setLoading(true);
+    setAnalyticsLoading(true);
+
+    // Simulate loading for demo
+    setTimeout(() => {
+      setLoading(false);
+
+      // Mock plan analytics data for demo
+      setPlanAnalytics({
+        total_conversions: 64,
+        total_value: 12450,
+        by_plan: {
+          free: { count: 0, percentage: 0, total_value: 0 },
+          starter: { count: 42, percentage: 65.6, total_value: 4074 },
+          pro: { count: 22, percentage: 34.4, total_value: 4334 },
+        },
+        upgrades: {
+          total: 8,
+          paths: [
+            { from: 'starter', to: 'pro', count: 7 },
+            { from: 'free', to: 'starter', count: 1 },
+          ],
+        },
+      });
+      setAnalyticsLoading(false);
+    }, 600);
   }, [period]);
 
   const handlePageChange = () => {};
@@ -152,17 +182,27 @@ export default function DashboardPage() {
               ))}
             </div>
 
-            <div className="dashboard-bottom">
-              <ReferralCard
-                code={referralCode}
-                link={referralLink}
-                onCodeUpdate={handleCodeUpdate}
-              />
-              <ConversionsTable
-                conversions={conversions}
-                pagination={pagination}
-                onPageChange={handlePageChange}
-              />
+            <div className="dashboard-main-grid">
+              <div className="dashboard-left-col">
+                <ReferralCard
+                  code={referralCode}
+                  link={referralLink}
+                  onCodeUpdate={handleCodeUpdate}
+                />
+                {planAnalytics && (
+                  <>
+                    <ConversionsByPlan data={planAnalytics} loading={analyticsLoading} />
+                    <PlanDistribution data={planAnalytics} loading={analyticsLoading} />
+                  </>
+                )}
+              </div>
+              <div className="dashboard-right-col">
+                <ConversionsTable
+                  conversions={conversions}
+                  pagination={pagination}
+                  onPageChange={handlePageChange}
+                />
+              </div>
             </div>
           </>
         )}

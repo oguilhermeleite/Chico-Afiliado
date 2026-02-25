@@ -122,7 +122,7 @@ const getConversions = async (req, res) => {
     const offset = (parseInt(page) - 1) * parseInt(limit);
 
     let query = `
-      SELECT id, user_id, user_name, amount, status, converted_at, created_at
+      SELECT id, user_id, user_name, amount, status, converted_at, created_at, plan_type, monthly_value
       FROM conversions
       WHERE influencer_id = $1
     `;

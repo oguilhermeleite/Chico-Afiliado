@@ -61,11 +61,25 @@
   margin-bottom: 28px;
 }
 
-/* Bottom Section */
-.dashboard-bottom {
+/* Main Grid Layout */
+.dashboard-main-grid {
   display: grid;
-  grid-template-columns: 380px 1fr;
+  grid-template-columns: 400px 1fr;
   gap: 20px;
+  align-items: start;
+}
+
+.dashboard-left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 20px;
+}
+
+.dashboard-right-col {
+  display: flex;
+  flex-direction: column;
 }
 
 /* Loading */
@@ -95,8 +109,12 @@
 
 /* Responsivo */
 @media (max-width: 1024px) {
-  .dashboard-bottom {
+  .dashboard-main-grid {
     grid-template-columns: 1fr;
+  }
+
+  .dashboard-left-col {
+    position: static;
   }
 }
 

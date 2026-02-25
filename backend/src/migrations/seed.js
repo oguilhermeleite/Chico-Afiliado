@@ -22,17 +22,26 @@ async function seed() {
     // Criar conversões de exemplo
     const statuses = ['paid', 'pending'];
     const names = ['João S.', 'Maria L.', 'Carlos M.', 'Ana P.', 'Pedro R.', 'Lucia F.', 'Roberto G.', 'Fernanda A.'];
+    const plans = [
+      { type: 'starter', monthlyValue: 97.00 },
+      { type: 'pro', monthlyValue: 197.00 },
+    ];
 
     for (let i = 0; i < 25; i++) {
       const daysAgo = Math.floor(Math.random() * 60);
-      const amount = (Math.random() * 500 + 50).toFixed(2);
       const status = statuses[Math.floor(Math.random() * statuses.length)];
       const userName = names[Math.floor(Math.random() * names.length)];
+      const plan = plans[Math.floor(Math.random() * plans.length)];
+
+      // Determinar se esta conversão é um upgrade (aproximadamente 20% das conversões)
+      const isUpgrade = i > 0 && Math.random() < 0.2 && plan.type === 'pro';
+      const previousPlan = isUpgrade ? 'starter' : null;
+      const upgradeDate = isUpgrade ? `NOW() - INTERVAL '${Math.floor(daysAgo / 2)} days'` : 'NULL';
 
       await pool.query(
-        `INSERT INTO conversions (id, influencer_id, user_id, user_name, amount, status, converted_at, created_at)
-         VALUES ($1, $2, $3, $4, $5, $6, NOW() - INTERVAL '${daysAgo} days', NOW())`,
-        [uuidv4(), id, uuidv4(), userName, amount, status]
+        `INSERT INTO conversions (id, influencer_id, user_id, user_name, amount, status, converted_at, created_at, plan_type, previous_plan, plan_upgraded_at, monthly_value)
+         VALUES ($1, $2, $3, $4, $5, $6, NOW() - INTERVAL '${daysAgo} days', NOW(), $7, $8, ${upgradeDate}, $9)`,
+        [uuidv4(), id, uuidv4(), userName, plan.monthlyValue, status, plan.type, previousPlan, plan.monthlyValue]
       );
     }
 

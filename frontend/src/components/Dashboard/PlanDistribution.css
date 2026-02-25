@@ -1,0 +1,114 @@
+.plan-distribution-card {
+  background: var(--card-dark);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.plan-distribution-card.loading {
+  min-height: 340px;
+  align-items: center;
+  justify-content: center;
+}
+
+.pd-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pd-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pd-header-left h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.pd-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(199, 255, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-green);
+}
+
+.pd-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pd-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pd-legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+.pd-legend-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.pd-legend-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.pd-tooltip {
+  background: var(--card-dark);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.pd-tooltip-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 0 0 4px 0;
+}
+
+.pd-tooltip-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.pd-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.pd-empty p {
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .plan-distribution-card {
+    padding: 16px;
+  }
+}

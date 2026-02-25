@@ -105,6 +105,31 @@
   color: var(--warning);
 }
 
+.plan-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.plan-badge.free {
+  background: rgba(156, 163, 175, 0.15);
+  color: #9CA3AF;
+}
+
+.plan-badge.starter {
+  background: rgba(74, 144, 226, 0.15);
+  color: #4A90E2;
+}
+
+.plan-badge.pro {
+  background: linear-gradient(135deg, rgba(199, 255, 0, 0.15), rgba(0, 255, 135, 0.15));
+  color: var(--primary-green);
+}
+
 .conversions-pagination {
   display: flex;
   align-items: center;

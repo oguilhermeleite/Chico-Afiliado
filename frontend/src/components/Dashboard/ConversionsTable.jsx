@@ -45,6 +45,7 @@ export default function ConversionsTable({ conversions, pagination, onPageChange
             <tr>
               <th>Data</th>
               <th>Usuário</th>
+              <th>Plano</th>
               <th>Valor</th>
               <th>Status</th>
             </tr>
@@ -52,7 +53,7 @@ export default function ConversionsTable({ conversions, pagination, onPageChange
           <tbody>
             {conversions.length === 0 ? (
               <tr>
-                <td colSpan="4" className="empty-row">
+                <td colSpan="5" className="empty-row">
                   Nenhuma conversão encontrada
                 </td>
               </tr>
@@ -61,6 +62,14 @@ export default function ConversionsTable({ conversions, pagination, onPageChange
                 <tr key={conversion.id}>
                   <td>{formatDate(conversion.converted_at)}</td>
                   <td>{conversion.user_name || conversion.user_id?.substring(0, 8) || '—'}</td>
+                  <td>
+                    <span className={`plan-badge ${conversion.plan_type || 'starter'}`}>
+                      {conversion.plan_type === 'free' && '🆓 Free'}
+                      {conversion.plan_type === 'starter' && '⭐ Starter'}
+                      {conversion.plan_type === 'pro' && '💎 Pro'}
+                      {!conversion.plan_type && '⭐ Starter'}
+                    </span>
+                  </td>
                   <td className="amount">{formatCurrency(conversion.amount)}</td>
                   <td>
                     <span className={`status-badge ${conversion.status}`}>

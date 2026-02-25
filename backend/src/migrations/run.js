@@ -7,6 +7,7 @@ const pool = require('../config/database');
 const migrationFiles = [
   '001_create_tables.sql',
   '002_add_instagram_fields.sql',
+  '003_add_plan_tracking_fields.sql',
 ];
 
 async function runMigrations() {

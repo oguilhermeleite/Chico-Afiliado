@@ -1,0 +1,180 @@
+.conversions-by-plan-card {
+  background: var(--card-dark);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.conversions-by-plan-card.loading {
+  min-height: 300px;
+  align-items: center;
+  justify-content: center;
+}
+
+.cbp-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cbp-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cbp-header-left h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.cbp-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(199, 255, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-green);
+}
+
+.cbp-total {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.cbp-plans {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cbp-plan-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cbp-plan-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cbp-plan-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cbp-plan-badge.free {
+  background: rgba(156, 163, 175, 0.15);
+  color: #9CA3AF;
+}
+
+.cbp-plan-badge.starter {
+  background: rgba(74, 144, 226, 0.15);
+  color: #4A90E2;
+}
+
+.cbp-plan-badge.pro {
+  background: linear-gradient(135deg, rgba(199, 255, 0, 0.15), rgba(0, 255, 135, 0.15));
+  color: var(--primary-green);
+}
+
+.cbp-plan-count {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.cbp-progress-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cbp-progress-bar {
+  flex: 1;
+  height: 8px;
+  background: rgba(42, 47, 45, 0.5);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cbp-progress-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.cbp-progress-fill.starter {
+  background: #4A90E2;
+}
+
+.cbp-progress-fill.pro {
+  background: linear-gradient(90deg, #C7FF00 0%, #00FF87 100%);
+}
+
+.cbp-percentage {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  min-width: 40px;
+  text-align: right;
+}
+
+.cbp-upgrades {
+  padding-top: 16px;
+  border-top: 1px solid var(--card-border);
+}
+
+.cbp-upgrades-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0 0 12px 0;
+}
+
+.cbp-upgrade-paths {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cbp-upgrade-path {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(42, 47, 45, 0.3);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.cbp-upgrade-path svg {
+  color: var(--primary-green);
+}
+
+.cbp-upgrade-count {
+  margin-left: auto;
+  font-weight: 600;
+  color: var(--primary-green);
+}
+
+@media (max-width: 640px) {
+  .conversions-by-plan-card {
+    padding: 16px;
+  }
+}

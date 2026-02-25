@@ -59,4 +59,9 @@ export const referralAPI = {
   generateNew: () => api.post('/referral/generate'),
 };
 
+// Analytics
+export const analyticsAPI = {
+  getConversionsByPlan: (period = 30) => api.get(`/analytics/conversions-by-plan?period=${period}`),
+};
+
 export default api;
