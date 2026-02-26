@@ -58,7 +58,7 @@ const getTotalCHCMoved = async (req, res) => {
     res.json({ data });
   } catch (error) {
     console.error('Erro ao buscar total CHC movimentado:', error);
-    res.status(500).json({ error: 'Erro ao carregar total de CHC' });
+    res.status(500).json({ message: 'Erro ao carregar total de CHC' });
   }
 };
 
@@ -92,7 +92,7 @@ const getAverageCHCPerUser = async (req, res) => {
     res.json({ data });
   } catch (error) {
     console.error('Erro ao calcular média CHC por usuário:', error);
-    res.status(500).json({ error: 'Erro ao calcular média de CHC' });
+    res.status(500).json({ message: 'Erro ao calcular média de CHC' });
   }
 };
 
@@ -200,7 +200,7 @@ const getCHCMovementBreakdown = async (req, res) => {
     res.json({ data });
   } catch (error) {
     console.error('Erro ao buscar breakdown de CHC:', error);
-    res.status(500).json({ error: 'Erro ao carregar movimentação de CHC' });
+    res.status(500).json({ message: 'Erro ao carregar movimentação de CHC' });
   }
 };
 

@@ -19,7 +19,7 @@ const getCode = async (req, res) => {
     );
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: 'Usuário não encontrado' });
+      return res.status(404).json({ message: 'Usuário não encontrado' });
     }
 
     const referralCode = result.rows[0].referral_code;
@@ -31,7 +31,7 @@ const getCode = async (req, res) => {
     });
   } catch (error) {
     console.error('Erro ao buscar código:', error);
-    res.status(500).json({ error: 'Erro ao buscar código de referência' });
+    res.status(500).json({ message: 'Erro ao buscar código de referência' });
   }
 };
 
@@ -66,7 +66,7 @@ const generateNewCode = async (req, res) => {
     });
   } catch (error) {
     console.error('Erro ao gerar código:', error);
-    res.status(500).json({ error: 'Erro ao gerar novo código' });
+    res.status(500).json({ message: 'Erro ao gerar novo código' });
   }
 };
 
@@ -80,7 +80,7 @@ const trackReferral = async (req, res) => {
     );
 
     if (influencer.rows.length === 0) {
-      return res.status(404).json({ error: 'Código de referência inválido' });
+      return res.status(404).json({ message: 'Código de referência inválido' });
     }
 
     res.json({
@@ -89,7 +89,7 @@ const trackReferral = async (req, res) => {
     });
   } catch (error) {
     console.error('Erro ao rastrear referência:', error);
-    res.status(500).json({ error: 'Erro ao processar referência' });
+    res.status(500).json({ message: 'Erro ao processar referência' });
   }
 };
 

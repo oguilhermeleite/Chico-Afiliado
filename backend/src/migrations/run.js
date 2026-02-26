@@ -11,6 +11,7 @@ const migrationFiles = [
   '004_add_commission_fields.sql',
   '005_add_chc_movements.sql',
   '006_add_retention_fields.sql',
+  '007_align_with_main_backend.sql',
 ];
 
 async function runMigrations() {

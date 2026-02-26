@@ -37,9 +37,10 @@ const getConversionsByPlan = async (req, res) => {
 
     // Formatar dados por plano
     const byPlan = {
-      free: { count: 0, percentage: 0, total_value: 0 },
-      starter: { count: 0, percentage: 0, total_value: 0 },
-      pro: { count: 0, percentage: 0, total_value: 0 },
+      free:  { count: 0, percentage: 0, total_value: 0 },
+      start: { count: 0, percentage: 0, total_value: 0 },
+      pro:   { count: 0, percentage: 0, total_value: 0 },
+      goat:  { count: 0, percentage: 0, total_value: 0 },
     };
 
     byPlanResult.rows.forEach(row => {
@@ -100,7 +101,7 @@ const getConversionsByPlan = async (req, res) => {
     });
   } catch (error) {
     console.error('Erro ao buscar conversões por plano:', error);
-    res.status(500).json({ error: 'Erro ao carregar analytics de planos' });
+    res.status(500).json({ message: 'Erro ao carregar analytics de planos' });
   }
 };
 
@@ -155,7 +156,7 @@ const getCommissionBreakdown = async (req, res) => {
         commission_total: 0,
         avg_plan_value: 0,
       },
-      starter: {
+      start: {
         conversions: 0,
         commission_paid: 0,
         commission_pending: 0,
@@ -163,6 +164,13 @@ const getCommissionBreakdown = async (req, res) => {
         avg_plan_value: 19.90,
       },
       pro: {
+        conversions: 0,
+        commission_paid: 0,
+        commission_pending: 0,
+        commission_total: 0,
+        avg_plan_value: 29.90,
+      },
+      goat: {
         conversions: 0,
         commission_paid: 0,
         commission_pending: 0,
@@ -209,7 +217,7 @@ const getCommissionBreakdown = async (req, res) => {
     });
   } catch (error) {
     console.error('Erro ao buscar breakdown de comissões:', error);
-    res.status(500).json({ error: 'Erro ao carregar comissões' });
+    res.status(500).json({ message: 'Erro ao carregar comissões' });
   }
 };
 
@@ -261,7 +269,7 @@ const getPlanUpgrades = async (req, res) => {
     });
   } catch (error) {
     console.error('Erro ao buscar upgrades de plano:', error);
-    res.status(500).json({ error: 'Erro ao carregar upgrades de plano' });
+    res.status(500).json({ message: 'Erro ao carregar upgrades de plano' });
   }
 };
 
@@ -296,9 +304,10 @@ const getPlanDistribution = async (req, res) => {
     const total = parseInt(totalResult.rows[0].total);
 
     const distribution = {
-      free: { count: 0, percentage: 0 },
-      starter: { count: 0, percentage: 0 },
-      pro: { count: 0, percentage: 0 },
+      free:  { count: 0, percentage: 0 },
+      start: { count: 0, percentage: 0 },
+      pro:   { count: 0, percentage: 0 },
+      goat:  { count: 0, percentage: 0 },
     };
 
     result.rows.forEach(row => {
@@ -319,7 +328,7 @@ const getPlanDistribution = async (req, res) => {
     });
   } catch (error) {
     console.error('Erro ao buscar distribuição de planos:', error);
-    res.status(500).json({ error: 'Erro ao carregar distribuição de planos' });
+    res.status(500).json({ message: 'Erro ao carregar distribuição de planos' });
   }
 };
 

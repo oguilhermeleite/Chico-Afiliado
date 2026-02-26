@@ -69,14 +69,15 @@ const getRetentionOverview = async (req, res) => {
          COALESCE(AVG(days_since_signup), 0) AS avg_days
        FROM conversions
        WHERE influencer_id = $1 AND status = 'paid'
-         AND plan_type IN ('starter','pro')
+         AND plan_type IN ('start','pro','goat')
        GROUP BY plan_type`,
       [influencerId]
     );
 
     const byPlan = {
-      starter: { retention_30d: 0, avg_activity_days: 0 },
-      pro:     { retention_30d: 0, avg_activity_days: 0 },
+      start: { retention_30d: 0, avg_activity_days: 0 },
+      pro:   { retention_30d: 0, avg_activity_days: 0 },
+      goat:  { retention_30d: 0, avg_activity_days: 0 },
     };
     planResult.rows.forEach(row => {
       const t = parseInt(row.total) || 1;
@@ -90,8 +91,9 @@ const getRetentionOverview = async (req, res) => {
     const upgradeResult = await pool.query(
       `SELECT
          COUNT(*) AS upgrades,
-         COUNT(*) FILTER (WHERE previous_plan = 'free'    AND plan_type = 'starter') AS free_to_starter,
-         COUNT(*) FILTER (WHERE previous_plan = 'starter' AND plan_type = 'pro')     AS starter_to_pro
+         COUNT(*) FILTER (WHERE previous_plan = 'free'  AND plan_type = 'start') AS free_to_start,
+         COUNT(*) FILTER (WHERE previous_plan = 'start' AND plan_type = 'pro')  AS start_to_pro,
+         COUNT(*) FILTER (WHERE previous_plan = 'pro'   AND plan_type = 'goat') AS pro_to_goat
        FROM conversions
        WHERE influencer_id = $1 AND status = 'paid' AND previous_plan IS NOT NULL`,
       [influencerId]
@@ -118,15 +120,16 @@ const getRetentionOverview = async (req, res) => {
         by_plan: byPlan,
         upgrade_rate: upgradeRate,
         upgrade_paths: [
-          { from: 'Free',    to: 'Starter', count: parseInt(up.free_to_starter) },
-          { from: 'Starter', to: 'Pro',     count: parseInt(up.starter_to_pro)  },
+          { from: 'free',  to: 'start', count: parseInt(up.free_to_start) },
+          { from: 'start', to: 'pro',   count: parseInt(up.start_to_pro)  },
+          { from: 'pro',   to: 'goat',  count: parseInt(up.pro_to_goat)   },
         ],
         average_lifetime_days: avgLifetimeDays,
       },
     });
   } catch (error) {
     console.error('Erro ao buscar retenção:', error);
-    res.status(500).json({ error: 'Erro ao carregar dados de retenção' });
+    res.status(500).json({ message: 'Erro ao carregar dados de retenção' });
   }
 };
 
@@ -168,7 +171,7 @@ const getUserActivity = async (req, res) => {
     });
   } catch (error) {
     console.error('Erro ao buscar atividade de usuários:', error);
-    res.status(500).json({ error: 'Erro ao carregar atividade' });
+    res.status(500).json({ message: 'Erro ao carregar atividade' });
   }
 };
 
@@ -177,7 +180,7 @@ const trackActivity = async (req, res) => {
   try {
     const influencerId = req.user.id;
     const { user_id } = req.body;
-    if (!user_id) return res.status(400).json({ error: 'user_id obrigatório' });
+    if (!user_id) return res.status(400).json({ message: 'user_id obrigatório' });
 
     await pool.query(
       `UPDATE conversions
@@ -189,7 +192,7 @@ const trackActivity = async (req, res) => {
     res.json({ success: true });
   } catch (error) {
     console.error('Erro ao registrar atividade:', error);
-    res.status(500).json({ error: 'Erro ao registrar atividade' });
+    res.status(500).json({ message: 'Erro ao registrar atividade' });
   }
 };
 

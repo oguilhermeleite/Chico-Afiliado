@@ -23,8 +23,9 @@ async function seed() {
     const statuses = ['paid', 'pending'];
     const names = ['João S.', 'Maria L.', 'Carlos M.', 'Ana P.', 'Pedro R.', 'Lucia F.', 'Roberto G.', 'Fernanda A.'];
     const plans = [
-      { type: 'starter', monthlyValue: 97.00 },
-      { type: 'pro', monthlyValue: 197.00 },
+      { type: 'start', monthlyValue: 19.90 },
+      { type: 'pro',   monthlyValue: 29.90 },
+      { type: 'goat',  monthlyValue: 49.90 },
     ];
 
     for (let i = 0; i < 25; i++) {
@@ -35,7 +36,7 @@ async function seed() {
 
       // Determinar se esta conversão é um upgrade (aproximadamente 20% das conversões)
       const isUpgrade = i > 0 && Math.random() < 0.2 && plan.type === 'pro';
-      const previousPlan = isUpgrade ? 'starter' : null;
+      const previousPlan = isUpgrade ? 'start' : null;
       const upgradeDate = isUpgrade ? `NOW() - INTERVAL '${Math.floor(daysAgo / 2)} days'` : 'NULL';
 
       await pool.query(

@@ -110,7 +110,7 @@ const getMetrics = async (req, res) => {
     });
   } catch (error) {
     console.error('Erro ao buscar métricas:', error);
-    res.status(500).json({ error: 'Erro ao carregar métricas' });
+    res.status(500).json({ message: 'Erro ao carregar métricas' });
   }
 };
 
@@ -157,7 +157,7 @@ const getConversions = async (req, res) => {
     });
   } catch (error) {
     console.error('Erro ao buscar conversões:', error);
-    res.status(500).json({ error: 'Erro ao carregar conversões' });
+    res.status(500).json({ message: 'Erro ao carregar conversões' });
   }
 };
 
