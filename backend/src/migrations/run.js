@@ -9,6 +9,8 @@ const migrationFiles = [
   '002_add_instagram_fields.sql',
   '003_add_plan_tracking_fields.sql',
   '004_add_commission_fields.sql',
+  '005_add_chc_movements.sql',
+  '006_add_retention_fields.sql',
 ];
 
 async function runMigrations() {
